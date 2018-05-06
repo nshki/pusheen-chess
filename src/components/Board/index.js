@@ -1,41 +1,33 @@
 import React, { Component } from 'react';
 import BoardTile from './BoardTile';
+import { connect } from 'redux-zero/react';
+import actions from '../../actions';
 import './style.css';
 
 class Board extends Component {
   render() {
+    const { board } = this.props;
     let tiles = [];
-    const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    rows.forEach((row, i) => {
-      tiles.push([]);
 
-      for (let j = 0; j < 8; j++) {
-        let piece, team;
+    for (const row in board) {
+      let rowArray = [];
 
-        if (row === 'b' || row === 'g') {
-          piece = 'pawn';
-          team = (row === 'b') ? 1 : 0;
-        } else if (row === 'a' || row === 'h') {
-          if (j === 0 || j === 7) {
-            piece = 'rook';
-          } else if (j === 1 || j === 6) {
-            piece = 'knight';
-          } else if (j === 2 || j === 5) {
-            piece = 'bishop';
-          } else if (j === 3) {
-            piece = 'queen';
-          } else {
-            piece = 'king';
-          }
-
-          team = (row === 'a') ? 1 : 0;
+      board[row].forEach((tile, i) => {
+        if (tile === null) {
+          rowArray.push(<BoardTile key={`${row}${i}`} />);
+        } else {
+          rowArray.push(
+            <BoardTile
+              piece={tile.piece}
+              team={tile.team}
+              key={`${row}${i}`}
+            />
+          );
         }
+      });
 
-        tiles[i].push(
-          <BoardTile piece={piece} team={team} key={`${row}${j+1}`} />
-        );
-      }
-    });
+      tiles.push(rowArray);
+    }
 
     return (
       <div className="board">
@@ -49,4 +41,8 @@ class Board extends Component {
   }
 }
 
-export default Board;
+const mapToProps = ({ board }) => ({ board });
+
+export default connect(mapToProps, actions)(({ board }) =>
+  <Board board={board} />
+);
