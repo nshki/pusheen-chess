@@ -5,7 +5,7 @@ class Bishop extends Component {
     return (
       <svg className="bishop" viewBox="0 0 296 424" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <g className="bishop__hat">
-          <g className="bishop__hat__base" transform="matrix(0.707107 -0.707107 0.707107 0.707107 60 87.2046)">
+          <g className="bishop__hat__base" transform="matrix(0.707107 -0.707107 0.707107 0.707107 60 87.2046)" fill="#CB9B20">
             <path d="M 0 40C 0 17.9086 17.9086 0 40 0L 123.326 0L 123.326 82.7473C 123.326 104.839 105.417 122.747 83.3259 122.747L 40 122.747C 17.9086 122.747 0 104.839 0 82.7473L 0 40Z" fill="#CB9B20"/>
             <path d="M 4 40C 4 20.1178 20.1177 4 40 4L 119.326 4L 119.326 82.7473C 119.326 102.63 103.208 118.747 83.3259 118.747L 40 118.747C 20.1178 118.747 4 102.63 4 82.7473L 4 40Z" stroke="#4C2C13" strokeWidth="8"/>
           </g>
