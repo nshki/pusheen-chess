@@ -34,7 +34,8 @@ const board = {
   h: royaltyRow(0),
 };
 
-const initialState = { board: board, activeTile: null };
+const initialState = { board, activeTile: null };
 const store = createStore(initialState);
 
 export default store;
+export { board };

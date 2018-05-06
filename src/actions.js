@@ -53,3 +53,5 @@ const actions = (store) => ({
 });
 
 export default actions;
+
+export { setActiveTile, movePiece };
