@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import BoardTile from './BoardTile';
-import { Pawn, Rook, Knight, Bishop, Queen, King } from '../pieces';
 import './style.css';
 
 class Board extends Component {
@@ -12,22 +11,22 @@ class Board extends Component {
       for (let j = 0; j < 8; j++) {
         let piece;
         if (row === 'b' || row === 'g') {
-          piece = <Pawn />;
+          piece = 'pawn';
         } else if (row === 'a' || row === 'h') {
           if (j === 0 || j === 7) {
-            piece = <Rook />;
+            piece = 'rook';
           } else if (j === 1 || j === 6) {
-            piece = <Knight />;
+            piece = 'knight';
           } else if (j === 2 || j === 5) {
-            piece = <Bishop />;
+            piece = 'bishop';
           } else if (j === 3) {
-            piece = <Queen />;
+            piece = 'queen';
           } else {
-            piece = <King />;
+            piece = 'king';
           }
         }
 
-        tiles[i].push(<BoardTile key={`${row}${j+1}`}>{piece}</BoardTile>);
+        tiles[i].push(<BoardTile piece={piece} key={`${row}${j+1}`} />);
       }
     });
 
