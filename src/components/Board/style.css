@@ -1,0 +1,35 @@
+.board {
+  width: 100vh;
+  height: 100vh;
+}
+
+.board__row {
+  width: 100%;
+  height: 12.5%;
+  display: flex;
+  flex-direction: row;
+}
+
+.board__tile {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board__tile:nth-child(2n),
+.board__row:nth-child(2n) .board__tile {
+  background-color: #aaa;
+}
+
+.board__tile,
+.board__row:nth-child(2n) .board__tile:nth-child(2n) {
+  background-color: #eee;
+}
+
+@media (orientation: portrait) {
+  .board {
+    width: 100vw;
+    height: 100vw;
+  }
+}
