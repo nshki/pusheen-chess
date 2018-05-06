@@ -1,6 +1,20 @@
 .board {
-  width: 100vh;
-  height: 100vh;
+  --bg-color: #eee;
+  --bg-alt-color: #ddd;
+  --margin: 20px;
+  --border-radius: 7px;
+  --full-length: calc(100vh - (var(--margin) * 2));
+  --tile-length: calc((100vh - (var(--margin) * 2)) / 8);
+
+  background-color: var(--bg-color);
+  width: var(--full-length);
+  min-width: var(--full-length);
+  max-width: var(--full-length);
+  height: var(--full-length);
+  min-height: var(--full-length);
+  max-height: var(--full-length);
+  margin: var(--margin);
+  border-radius: var(--border-radius);
 }
 
 .board__row {
@@ -10,31 +24,28 @@
 }
 
 .board__tile {
-  width: 12.5vh;
-  height: 12.5vh;
+  width: var(--tile-length);
+  height: var(--tile-length); 
+  padding-bottom: 12px;
+  border-radius: var(--border-radius);
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.board__tile svg {
-  width: auto;
-  max-height: 90%;
+  align-items: flex-end;
 }
 
 .board__tile:nth-child(2n),
 .board__row:nth-child(2n) .board__tile {
-  background-color: #aaa;
+  background-color: var(--bg-alt-color);
 }
 
 .board__tile,
 .board__row:nth-child(2n) .board__tile:nth-child(2n) {
-  background-color: #eee;
+  background-color: var(--bg-color);
 }
 
 @media (orientation: portrait) {
   .board {
-    width: 100vw;
-    height: 100vw;
+    --full-length: calc(100vw - (var(--margin) * 2));
+    --tile-length: calc((100vw - (var(--margin) * 2)) / 8);
   }
 }
