@@ -3,6 +3,7 @@
   --bg-alt-color: #ddd;
   --margin: 20px;
   --border-radius: 7px;
+  --shadow-color: #ccc;
   --full-length: calc(100vh - (var(--margin) * 2));
   --tile-length: calc((100vh - (var(--margin) * 2)) / 8);
   --alt-team-color: #888;
@@ -14,8 +15,9 @@
   height: var(--full-length);
   min-height: var(--full-length);
   max-height: var(--full-length);
-  margin: var(--margin);
+  margin: var(--margin) auto;
   border-radius: var(--border-radius);
+  box-shadow: 0 0 0 2px var(--shadow-color);
 }
 
 .board__row {
@@ -34,9 +36,9 @@
   align-items: flex-end;
 }
 
-.board__tile.is-active {
-  box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.5);
-}
+
+/* Alternate tile colors.
+------------------------------------------------------------------------------*/
 
 .board__tile:nth-child(2n),
 .board__row:nth-child(2n) .board__tile {
@@ -47,6 +49,20 @@
 .board__row:nth-child(2n) .board__tile:nth-child(2n) {
   background-color: var(--bg-color);
 }
+
+
+/* Active tile.
+------------------------------------------------------------------------------*/
+
+.board .board__row .board__tile.is-active {
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(244, 185, 66, 0.2);
+  box-shadow: inset 0 0 3px 5px rgba(244, 185, 66, 0.5);
+}
+
+
+/* Portrait mode.
+------------------------------------------------------------------------------*/
 
 @media (orientation: portrait) {
   .board {
