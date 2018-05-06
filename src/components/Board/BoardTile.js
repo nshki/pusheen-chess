@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
 class BoardTile extends Component {
-  render () {
+  render() {
     return (
-      <div className="board__tile" />
+      <div className="board__tile">
+        {this.props.children}
+      </div>
     );
   }
 }
