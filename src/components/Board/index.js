@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import BoardTile from './BoardTile';
 import { connect } from 'redux-zero/react';
 import actions from '../../actions';
+import BoardTile from './BoardTile';
 import './style.css';
 
 class Board extends Component {
@@ -13,14 +13,17 @@ class Board extends Component {
       let rowArray = [];
 
       board[row].forEach((tile, i) => {
+        const id = `${row}${i}`;
+
         if (tile === null) {
-          rowArray.push(<BoardTile key={`${row}${i}`} />);
+          rowArray.push(<BoardTile key={id} id={id} />);
         } else {
           rowArray.push(
             <BoardTile
               piece={tile.piece}
               team={tile.team}
-              key={`${row}${i}`}
+              key={id}
+              id={id}
             />
           );
         }
@@ -43,6 +46,4 @@ class Board extends Component {
 
 const mapToProps = ({ board }) => ({ board });
 
-export default connect(mapToProps, actions)(({ board }) =>
-  <Board board={board} />
-);
+export default connect(mapToProps, actions)(Board);

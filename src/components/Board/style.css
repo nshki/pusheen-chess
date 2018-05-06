@@ -34,6 +34,10 @@
   align-items: flex-end;
 }
 
+.board__tile.is-active {
+  box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
 .board__tile:nth-child(2n),
 .board__row:nth-child(2n) .board__tile {
   background-color: var(--bg-alt-color);
