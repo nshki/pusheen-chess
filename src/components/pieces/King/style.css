@@ -2,3 +2,7 @@
   max-width: 65%;
   width: 100%;
 }
+
+.king.team-1 .king__body__fill {
+  fill: var(--alt-team-color);
+}

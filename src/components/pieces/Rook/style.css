@@ -2,3 +2,7 @@
   max-width: 65%;
   width: 100%;
 }
+
+.rook.team-1 .rook__body__fill {
+  fill: var(--alt-team-color);
+}

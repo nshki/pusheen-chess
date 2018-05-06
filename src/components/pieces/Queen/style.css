@@ -2,3 +2,7 @@
   max-width: 65%;
   width: 100%;
 }
+
+.queen.team-1 .queen__body__fill {
+  fill: var(--alt-team-color);
+}

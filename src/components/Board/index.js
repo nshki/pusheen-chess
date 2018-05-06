@@ -8,10 +8,13 @@ class Board extends Component {
     const rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     rows.forEach((row, i) => {
       tiles.push([]);
+
       for (let j = 0; j < 8; j++) {
-        let piece;
+        let piece, team;
+
         if (row === 'b' || row === 'g') {
           piece = 'pawn';
+          team = (row === 'b') ? 1 : 0;
         } else if (row === 'a' || row === 'h') {
           if (j === 0 || j === 7) {
             piece = 'rook';
@@ -24,9 +27,13 @@ class Board extends Component {
           } else {
             piece = 'king';
           }
+
+          team = (row === 'a') ? 1 : 0;
         }
 
-        tiles[i].push(<BoardTile piece={piece} key={`${row}${j+1}`} />);
+        tiles[i].push(
+          <BoardTile piece={piece} team={team} key={`${row}${j+1}`} />
+        );
       }
     });
 

@@ -2,3 +2,7 @@
   max-width: 67%;
   width: 100%;
 }
+
+.knight.team-1 .knight__body__fill {
+  fill: var(--alt-team-color);
+}

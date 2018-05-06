@@ -2,3 +2,7 @@
   max-width: 67%;
   width: 100%;
 }
+
+.bishop.team-1 .bishop__body__fill {
+  fill: var(--alt-team-color);
+}

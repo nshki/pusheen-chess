@@ -5,6 +5,7 @@
   --border-radius: 7px;
   --full-length: calc(100vh - (var(--margin) * 2));
   --tile-length: calc((100vh - (var(--margin) * 2)) / 8);
+  --alt-team-color: #888;
 
   background-color: var(--bg-color);
   width: var(--full-length);
