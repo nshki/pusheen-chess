@@ -34,7 +34,7 @@ const tileHasPiece = (state, row, col) => {
  */
 const tileData = (state, tileId) => {
   const [row, _col] = tileId.split('');
-  const col = parseInt(_col);
+  const col = parseInt(_col, 10);
   const rowNames = Object.keys(state.board);
   const rowIndex = rowNames.indexOf(row);
   const { piece, team } = state.board[row][col];
@@ -95,6 +95,8 @@ const highlightLegalMoves = (state, tileId) => {
   switch (piece) {
     case 'pawn':
       return highlightPawnMoves(state, tileId);
+    default:
+      break;
   }
 
   return state;
