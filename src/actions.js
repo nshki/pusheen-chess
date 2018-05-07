@@ -8,9 +8,8 @@
  */
 const tileInBounds = (state, row, col) => {
   return (
-    Object.keys(state.board).includes(row) &&
-    typeof state.board[row] !== undefined &&
-    typeof state.board[row][col] !== undefined
+    typeof state.board[row] !== 'undefined' &&
+    typeof state.board[row][col] !== 'undefined'
   );
 };
 
@@ -24,6 +23,32 @@ const tileInBounds = (state, row, col) => {
  */
 const tileHasPiece = (state, row, col) => {
   return (state.board[row][col] !== null);
+};
+
+/**
+ * Returns whether or not tile coordinates have an opposing piece.
+ *
+ * @param {Object} - state
+ * @param {String} - row
+ * @param {Number} - col
+ * @param {Number} - team
+ * @return {Boolean}
+ */
+const tileHasEnemy = (state, row, col, team) => {
+  return tileHasPiece(state, row, col) && state.board[row][col].team !== team;
+};
+
+/**
+ * Returns whether or not tile coordinates have a team piece.
+ *
+ * @param {Object} - state
+ * @param {String} - row
+ * @param {Number} - col
+ * @param {Number} - team
+ * @return {Boolean}
+ */
+const tileHasAlly = (state, row, col, team) => {
+  return tileHasPiece(state, row, col) && state.board[row][col].team === team;
 };
 
 /**
@@ -74,11 +99,55 @@ const highlightPawnMoves = (state, tileId) => {
   [-1, 1].forEach((colShift) => {
     if (
       tileInBounds(state, nextRow, col + colShift) &&
-      tileHasPiece(state, nextRow, col + colShift)
+      tileHasEnemy(state, nextRow, col + colShift, team)
     ) {
       legalMoves.push(`${nextRow}${col + colShift}`);
     }
   });
+
+  return legalMoves;
+};
+
+/**
+ * Returns legal moves for a rook.
+ *
+ * @param {Object} - state
+ * @param {String} - tileId
+ * @return {Array<String>}
+ */
+const highlightRookMoves = (state, tileId) => {
+  const { row, col, rowNames, rowIndex, team } = tileData(state, tileId);
+  let legalMoves = [];
+
+  // Check left.
+  for (let i = col - 1; i >= 0; i--) {
+    if (tileHasAlly(state, row, i, team)) { break; }
+    legalMoves.push(`${row}${i}`);
+    if (tileHasEnemy(state, row, i, team)) { break; }
+  }
+
+  // Check right.
+  for (let i = col + 1; i < 8; i++) {
+    if (tileHasAlly(state, row, i, team)) { break; }
+    legalMoves.push(`${row}${i}`);
+    if (tileHasEnemy(state, row, i, team)) { break; }
+  }
+
+  // Check up.
+  for (let i = rowIndex - 1; i >= 0; i--) {
+    const currRow = rowNames[i];
+    if (tileHasAlly(state, currRow, col, team)) { break; }
+    legalMoves.push(`${currRow}${col}`);
+    if (tileHasEnemy(state, currRow, col, team)) { break; }
+  }
+
+  // Check down.
+  for (let i = rowIndex + 1; i < 8; i++) {
+    const currRow = rowNames[i];
+    if (tileHasAlly(state, currRow, col, team)) { break; }
+    legalMoves.push(`${currRow}${col}`);
+    if (tileHasEnemy(state, currRow, col, team)) { break; }
+  }
 
   return legalMoves;
 };
@@ -96,6 +165,8 @@ const highlightLegalMoves = (state, tileId) => {
   switch (piece) {
     case 'pawn':
       return highlightPawnMoves(state, tileId);
+    case 'rook':
+      return highlightRookMoves(state, tileId);
     default:
       break;
   }
@@ -164,5 +235,6 @@ export {
   setActiveTile,
   highlightLegalMoves,
   highlightPawnMoves,
+  highlightRookMoves,
   movePiece,
 };

@@ -3,6 +3,7 @@ import actions, {
   setActiveTile,
   highlightLegalMoves,
   highlightPawnMoves,
+  highlightRookMoves,
   movePiece,
 } from './actions';
 import { board } from './store';
@@ -39,7 +40,25 @@ describe('highlightPawnMoves', () => {
     const t1Result = highlightPawnMoves({ board: newBoard }, 'g1');
     const t0Result = highlightPawnMoves({ board: newBoard }, 'b7');
     expect(t1Result).toEqual(['h0', 'h2']);
-    expect(t0Result).toEqual(['a6', 'a8']);
+    expect(t0Result).toEqual(['a6']);
+  });
+});
+
+describe('highlightRookMoves', () => {
+  test("doesn't show moves past pieces", () => {
+    const result = highlightRookMoves(initialState, 'a0');
+    expect(result).toEqual([]);
+  });
+
+  test('shows correct moves', () => {
+    let newBoard = JSON.parse(JSON.stringify(initialState.board));
+    newBoard.e[0] = { piece: 'pawn', team: 1 };
+    newBoard.e[4] = { piece: 'rook', team: 0 };
+    const modifiedState = { ...initialState, board: newBoard };
+    const result = highlightRookMoves(modifiedState, 'e4');
+    expect(result).toEqual(
+      ['e3', 'e2', 'e1', 'e0', 'e5', 'e6', 'e7', 'd4', 'c4', 'b4', 'f4']
+    );
   });
 });
 
