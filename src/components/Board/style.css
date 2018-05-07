@@ -51,13 +51,19 @@
 }
 
 
-/* Active tile.
+/* Active tiles and legal move highlights.
 ------------------------------------------------------------------------------*/
 
 .board .board__row .board__tile.is-active {
   transition: all 0.3s ease-in-out;
   background-color: rgba(244, 185, 66, 0.2);
   box-shadow: inset 0 0 3px 5px rgba(244, 185, 66, 0.5);
+}
+
+.board .board__row .board__tile.is-legal {
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(65, 219, 99, 0.2);
+  box-shadow: inset 0 0 3px 5px rgba(65, 219, 99, 0.5);
 }
 
 

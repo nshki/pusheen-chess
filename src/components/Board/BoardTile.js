@@ -6,12 +6,20 @@ import { Pawn, Rook, Knight, Bishop, Queen, King } from '../pieces';
 
 class BoardTile extends Component {
   render() {
-    const { activeTile, handleTileClick, id, piece, team } = this.props;
+    const {
+      activeTile,
+      legalMoves,
+      handleTileClick,
+      id,
+      piece,
+      team,
+    } = this.props;
     const activeClass = (activeTile === id) ? 'is-active' : '';
+    const legalClass = (legalMoves.includes(id)) ? 'is-legal' : '';
 
     return (
       <div
-        className={`board__tile ${activeClass}`}
+        className={`board__tile ${activeClass} ${legalClass}`}
         onClick={() => handleTileClick(id)}
       >
         {piece === 'pawn' && <Pawn team={team} />}
@@ -31,6 +39,6 @@ BoardTile.propTypes = {
   team: PropTypes.oneOf([0, 1]),
 };
 
-const mapToProps = ({ activeTile }) => ({ activeTile });
+const mapToProps = ({ activeTile, legalMoves }) => ({ activeTile, legalMoves });
 
 export default connect(mapToProps, actions)(BoardTile);
