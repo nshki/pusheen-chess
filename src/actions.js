@@ -8,6 +8,7 @@
  */
 const tileInBounds = (state, row, col) => {
   return (
+    Object.keys(state.board).includes(row) &&
     typeof state.board[row] !== undefined &&
     typeof state.board[row][col] !== undefined
   );
