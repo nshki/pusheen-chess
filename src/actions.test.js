@@ -4,6 +4,7 @@ import actions, {
   highlightLegalMoves,
   highlightPawnMoves,
   highlightRookMoves,
+  highlightKnightMoves,
   movePiece,
 } from './actions';
 import { board } from './store';
@@ -59,6 +60,17 @@ describe('highlightRookMoves', () => {
     expect(result).toEqual(
       ['e3', 'e2', 'e1', 'e0', 'e5', 'e6', 'e7', 'd4', 'c4', 'b4', 'f4']
     );
+  });
+});
+
+describe('highlightKnightMoves', () => {
+  test('shows correct moves', () => {
+    let newBoard = JSON.parse(JSON.stringify(initialState.board));
+    newBoard.d[3] = { piece: 'pawn', team: 0 };
+    newBoard.c[1] = { piece: 'knight', team: 0 };
+    const modifiedState = { ...initialState, board: newBoard };
+    const result = highlightKnightMoves(modifiedState, 'c1');
+    expect(result).toEqual(['a0', 'a2', 'b3', 'e2', 'e0']);
   });
 });
 

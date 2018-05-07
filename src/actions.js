@@ -153,6 +153,44 @@ const highlightRookMoves = (state, tileId) => {
 };
 
 /**
+ * Returns legal moves for a knight.
+ *
+ * @param {Object} - state
+ * @param {String} - tileId
+ * @return {Array<String>}
+ */
+const highlightKnightMoves = (state, tileId) => {
+  const { row, col, rowNames, rowIndex, team } = tileData(state, tileId);
+  let legalMoves = [];
+
+  [
+    { rowDiff: -1, colDiff: -2 },
+    { rowDiff: -2, colDiff: -1 },
+    { rowDiff: -2, colDiff: 1 },
+    { rowDiff: -1, colDiff: 2 },
+    { rowDiff: 1, colDiff: 2 },
+    { rowDiff: 2, colDiff: 1 },
+    { rowDiff: 2, colDiff: -1 },
+    { rowDiff: 1, colDiff: -2 },
+  ].forEach(({ rowDiff, colDiff }) => {
+    const checkRow = rowNames[rowIndex + rowDiff];
+    const checkCol = col + colDiff;
+
+    if (
+      tileInBounds(state, checkRow, checkCol) &&
+      (
+        !tileHasPiece(state, checkRow, checkCol) ||
+        tileHasEnemy(state, checkRow, checkCol, team)
+      )
+    ) {
+      legalMoves.push(`${checkRow}${checkCol}`);
+    }
+  });
+
+  return legalMoves;
+};
+
+/**
  * Highlights legal moves for the given tile piece.
  *
  * @param {Object} - state
@@ -167,6 +205,8 @@ const highlightLegalMoves = (state, tileId) => {
       return highlightPawnMoves(state, tileId);
     case 'rook':
       return highlightRookMoves(state, tileId);
+    case 'knight':
+      return highlightKnightMoves(state, tileId);
     default:
       break;
   }
@@ -236,5 +276,6 @@ export {
   highlightLegalMoves,
   highlightPawnMoves,
   highlightRookMoves,
+  highlightKnightMoves,
   movePiece,
 };
