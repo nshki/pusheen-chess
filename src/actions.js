@@ -250,7 +250,7 @@ const highlightQueenMoves = (state, tileId) => {
  * @return {Array<String>}
  */
 const highlightKingMoves = (state, tileId) => {
-  const { row, col, rowNames, rowIndex, team } = tileData(state, tileId);
+  const { col, rowNames, rowIndex, team } = tileData(state, tileId);
   let legalMoves = [];
 
   [
