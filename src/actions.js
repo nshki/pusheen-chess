@@ -230,6 +230,19 @@ const highlightBishopMoves = (state, tileId) => {
 };
 
 /**
+ * Returns legal moves for a queen.
+ *
+ * @param {Object} - state
+ * @param {String} - tileId
+ * @return {Array<String>}
+ */
+const highlightQueenMoves = (state, tileId) => {
+  const legalRookMoves = highlightRookMoves(state, tileId);
+  const legalBishopMoves = highlightBishopMoves(state, tileId);
+  return [...legalRookMoves, ...legalBishopMoves];
+};
+
+/**
  * Highlights legal moves for the given tile piece.
  *
  * @param {Object} - state
@@ -248,6 +261,8 @@ const highlightLegalMoves = (state, tileId) => {
       return highlightKnightMoves(state, tileId);
     case 'bishop':
       return highlightBishopMoves(state, tileId);
+    case 'queen':
+      return highlightQueenMoves(state, tileId);
     default:
       break;
   }
@@ -319,5 +334,6 @@ export {
   highlightRookMoves,
   highlightKnightMoves,
   highlightBishopMoves,
+  highlightQueenMoves,
   movePiece,
 };
