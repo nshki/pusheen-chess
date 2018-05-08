@@ -243,6 +243,44 @@ const highlightQueenMoves = (state, tileId) => {
 };
 
 /**
+ * Returns legal moves for a king.
+ *
+ * @param {Object} - state
+ * @param {String} - tileId
+ * @return {Array<String>}
+ */
+const highlightKingMoves = (state, tileId) => {
+  const { row, col, rowNames, rowIndex, team } = tileData(state, tileId);
+  let legalMoves = [];
+
+  [
+    { rowDiff: 0, colDiff: -1 },
+    { rowDiff: -1, colDiff: -1 },
+    { rowDiff: -1, colDiff: 0 },
+    { rowDiff: -1, colDiff: 1 },
+    { rowDiff: 0, colDiff: 1 },
+    { rowDiff: 1, colDiff: 1 },
+    { rowDiff: 1, colDiff: 0 },
+    { rowDiff: 1, colDiff: -1 },
+  ].forEach(({ rowDiff, colDiff }) => {
+    const currRow = rowNames[rowIndex + rowDiff];
+    const currCol = col + colDiff;
+
+    if (
+      tileInBounds(state, currRow, currCol) &&
+      (
+        !tileHasPiece(state, currRow, currCol) ||
+        tileHasEnemy(state, currRow, currCol, team)
+      )
+    ) {
+      legalMoves.push(`${currRow}${currCol}`);
+    }
+  });
+
+  return legalMoves;
+};
+
+/**
  * Highlights legal moves for the given tile piece.
  *
  * @param {Object} - state
@@ -263,6 +301,8 @@ const highlightLegalMoves = (state, tileId) => {
       return highlightBishopMoves(state, tileId);
     case 'queen':
       return highlightQueenMoves(state, tileId);
+    case 'king':
+      return highlightKingMoves(state, tileId);
     default:
       break;
   }
@@ -335,5 +375,6 @@ export {
   highlightKnightMoves,
   highlightBishopMoves,
   highlightQueenMoves,
+  highlightKingMoves,
   movePiece,
 };
