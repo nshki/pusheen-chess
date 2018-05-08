@@ -173,19 +173,58 @@ const highlightKnightMoves = (state, tileId) => {
     { rowDiff: 2, colDiff: -1 },
     { rowDiff: 1, colDiff: -2 },
   ].forEach(({ rowDiff, colDiff }) => {
-    const checkRow = rowNames[rowIndex + rowDiff];
-    const checkCol = col + colDiff;
+    const currRow = rowNames[rowIndex + rowDiff];
+    const currCol = col + colDiff;
 
     if (
-      tileInBounds(state, checkRow, checkCol) &&
+      tileInBounds(state, currRow, currCol) &&
       (
-        !tileHasPiece(state, checkRow, checkCol) ||
-        tileHasEnemy(state, checkRow, checkCol, team)
+        !tileHasPiece(state, currRow, currCol) ||
+        tileHasEnemy(state, currRow, currCol, team)
       )
     ) {
-      legalMoves.push(`${checkRow}${checkCol}`);
+      legalMoves.push(`${currRow}${currCol}`);
     }
   });
+
+  return legalMoves;
+};
+
+/**
+ * Returns legal moves for a bishop.
+ *
+ * @param {Object} - state
+ * @param {String} - tileId
+ * @return {Array<String>}
+ */
+const highlightBishopMoves = (state, tileId) => {
+  const { col, rowNames, rowIndex, team } = tileData(state, tileId);
+  const directions = [
+    { rowDir: -1, colDir: -1 },
+    { rowDir: -1, colDir: 1 },
+    { rowDir: 1, colDir: 1 },
+    { rowDir: 1, colDir: -1 },
+  ];
+  let legalMoves = [];
+
+  for (let i = 0; i < directions.length; i++) {
+    const { rowDir, colDir } = directions[i];
+
+    for (let j = 1; j < 8; j++) {
+      const currRow = rowNames[rowIndex + (j * rowDir)];
+      const currCol = col + (j * colDir);
+
+      if (
+        !tileInBounds(state, currRow, currCol) ||
+        tileHasAlly(state, currRow, currCol, team)
+      ) {
+        break;
+      }
+
+      legalMoves.push(`${currRow}${currCol}`);
+      if (tileHasEnemy(state, currRow, currCol, team)) { break; }
+    }
+  }
 
   return legalMoves;
 };
@@ -207,6 +246,8 @@ const highlightLegalMoves = (state, tileId) => {
       return highlightRookMoves(state, tileId);
     case 'knight':
       return highlightKnightMoves(state, tileId);
+    case 'bishop':
+      return highlightBishopMoves(state, tileId);
     default:
       break;
   }
@@ -277,5 +318,6 @@ export {
   highlightPawnMoves,
   highlightRookMoves,
   highlightKnightMoves,
+  highlightBishopMoves,
   movePiece,
 };
