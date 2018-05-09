@@ -26,7 +26,8 @@ const highlightPawnMoves = (state, tileId) => {
   // Check advance row.
   if (
     ((team === 1 && row === 'b') || (team === 0 && row === 'g')) &&
-    !tileHasPiece(state, advanceRow, col)
+    !tileHasPiece(state, advanceRow, col) &&
+    !tileHasPiece(state, nextRow, col)
   ) {
     legalMoves.push(`${advanceRow}${col}`);
   }
