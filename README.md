@@ -4,6 +4,11 @@ Pusheen Chess
 This is a chess implementation written in [React](https://reactjs.org/) and inspired by [Pusheen](https://en.wikipedia.org/wiki/Pusheen).
 
 
+## Demo
+
+You can play with the latest version of `master` at http://pusheen-chess.netlify.com/.
+
+
 ## Technologies
 
 - [create-react-app](https://github.com/facebook/create-react-app)
